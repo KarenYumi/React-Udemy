@@ -57,7 +57,7 @@ console.log("--------------------");
 function transformToObjects(numberArray) {
     return numberArray.map((item) => ({val:item}));
 }
-console.log(transformToObjects(1,2,3));
+console.log(transformToObjects([1,2,3]));
 
 console.log("--------------------");
 
