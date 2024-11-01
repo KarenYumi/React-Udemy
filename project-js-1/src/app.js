@@ -69,7 +69,25 @@ const {name: userName, age} = { //userName um alias para  name
     name:"Max",
      age: 34
 };
+console.log(firstName);
 
 console.log("--------------------");
 
-const password = prompt("Your Password");
+const newhobbie = ["Reading"];
+const merge = [...hobbies, ...newhobbie];
+console.log(merge);
+
+console.log("--------------------");
+
+const password = prompt("Your Password"); //aparece um pop up
+if (password === "Hello") {
+    console.log("OLAAA");
+}else if(password === "hello"){
+    console.log("OIIIII");
+}else{
+    console.log("Acesso negado")
+}
+
+console.log("--------------------");
+
+
