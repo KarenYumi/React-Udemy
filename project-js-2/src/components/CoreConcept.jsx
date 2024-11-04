@@ -1,3 +1,4 @@
+import './CoreConcept.css';
 export default function CoreConcept({image, title, description}){ //necessario o {}
   return (
   <li>
