@@ -90,4 +90,32 @@ if (password === "Hello") {
 
 console.log("--------------------");
 
+for (const hobby of hobbies){
+    console.log(hobby); //passa as inof de hobbies para hobby
+}
 
+console.log("--------------------");
+
+function fim(){
+    console.log("FIM");
+}
+const fim2 = ()=>{
+    console.log("ACABOUU");
+}
+//setTimeout(fim, 2000);
+//setTimeout(fim2, 3000);
+//setTimeout(()=> {
+//    console.log("ACABOU FINALMENTE");
+//}, 4000);
+
+function greeter(greetFn){
+    greetFn();
+}
+greeter(()=> console.log("Hi"));
+
+console.log("--------------------");
+
+let userMessage = "Hello";
+userMessage = userMessage.concat("!!!");
+console.log(userMessage);
+console.log("--------------------");
