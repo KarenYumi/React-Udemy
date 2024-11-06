@@ -1,3 +1,4 @@
+import {useState} from 'react';
 import componentsImg from './assets/components.png';
 import { CORE_CONCEPTS } from './data.js';
 import Header from './components/Header/Header.jsx';
@@ -5,9 +6,13 @@ import CoreConcept from './components/CoreConcept.jsx';
 import TabButton from './components/TabButton.jsx';
 
 function App() {
+  const [selectedTopic, setSelectedTopic ] = useState('Please click a button'); //TEM que ser usada aqui no top function (Hook function)
+
   function handleSelect(selectedButton){
-    console.log(selectedButton);
+    setSelectedTopic(selectedButton);
+    console.log(selectedTopic);
   }
+
   return (
     <div>
       <Header></Header> 
@@ -36,8 +41,8 @@ function App() {
             <TabButton onSelect={() => handleSelect('jsx')}>JSX</TabButton>
             <TabButton onSelect={() => handleSelect('props')}>Props</TabButton>
             <TabButton onSelect={() => handleSelect('state')}>State</TabButton>
-
           </menu>
+          {selectedTopic}
         </section>
         <br/>
         <h2>Time to get started!</h2>
