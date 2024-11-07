@@ -18,7 +18,7 @@ export default function CoreConcepts() {
             />
             <CoreConcept {...CORE_CONCEPTS[2]}/>
             <CoreConcept {...CORE_CONCEPTS[3]}/> */}
-            {CORE_CONCEPTS.map((conceptItem) => (<CoreConcept key={conceptItem.title} {...conceptItem}/>))} //output list usando map 
+            {CORE_CONCEPTS.map((conceptItem) => (<CoreConcept key={conceptItem.title} {...conceptItem}/>))} {/*output list usando map */}
           </ul>
         </section>
     )
