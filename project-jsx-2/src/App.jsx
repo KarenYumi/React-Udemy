@@ -1,63 +1,17 @@
-import {useState} from 'react';
-import componentsImg from './assets/components.png';
-import { CORE_CONCEPTS } from './data.js';
+import Examples from "./components/Examples.jsx";
 import Header from './components/Header/Header.jsx';
-import CoreConcept from './components/CoreConcept.jsx';
-import TabButton from './components/TabButton.jsx';
-import {EXAMPLES} from './data.js';
+import CoreConcepts from './components/CoreConcepts.jsx';
+
 
 function App() {
-  const [selectedTopic, setSelectedTopic ] = useState('components'); //TEM que ser usada aqui no top function (Hook function)
-
-  function handleSelect(selectedButton){
-    setSelectedTopic(selectedButton);
-    //console.log(selectedTopic);
-  }
-
   return (
-    <div>
-      <Header></Header> 
+    <> 
+      <Header/> 
       <main>
-        <section id="core-concepts">
-          <h2> Core Concepts</h2>
-          <ul>
-            {/* <CoreConcept 
-            title="Components" 
-            description='The core UI building block - compose the user interface by combining multiple components.'
-            image ={componentsImg}
-            />
-            <CoreConcept
-            title={CORE_CONCEPTS[1].title}                                      repetição, por isso usamos o map abaixo
-            description={CORE_CONCEPTS[1].description} 
-            image ={CORE_CONCEPTS[1].image} 
-            />
-            <CoreConcept {...CORE_CONCEPTS[2]}/>
-            <CoreConcept {...CORE_CONCEPTS[3]}/> */}
-            {CORE_CONCEPTS.map((conceptItem) => (<CoreConcept key={conceptItem.title} {...conceptItem}/>))} //output list usando map 
-          </ul>
-        </section>
-        <section id="examples">
-          <h2>Examples</h2>
-          <menu>
-            <TabButton isSelected={selectedTopic === 'components'} onSelect={() => handleSelect('components')}>Components</TabButton>
-            <TabButton isSelected={selectedTopic === 'jsx'} onSelect={() => handleSelect('jsx')}>JSX</TabButton>
-            <TabButton isSelected={selectedTopic === 'props'} onSelect={() => handleSelect('props')}>Props</TabButton>
-            <TabButton isSelected={selectedTopic === 'state'} onSelect={() => handleSelect('state')}>State</TabButton>
-          </menu>
-          {!selectedTopic ? (
-            <p>Please select a topic.</p>
-          ) : (
-            <div id="tab-content">
-              <h3>{EXAMPLES[selectedTopic].title}</h3>
-              <p>{EXAMPLES[selectedTopic].description}</p>
-              <pre>
-                <code>{EXAMPLES[selectedTopic].code}</code>
-              </pre>
-            </div>
-          )}
-        </section>
+        <CoreConcepts/>{/*movi o section daqui para o CoreConcept*/}
+        <Examples/>
       </main>
-    </div>
+    </>
   );
 }
 
