@@ -1,11 +1,11 @@
 import {useState} from "react";
 
-export default function Player({initialName, symbol}) {
+export default function Player({initialName, symbol, isActive}) {
   const [playerName, setPlayerName] = useState(initialName);
   const [isEditing, setIsEditing] = useState(false);
 
   function saving(){
-    setIsEditing((editing)=> !editing); //para voltar ao edit depois de clicar no save
+    setIsEditing((editing) => !editing); //para voltar ao edit depois de clicar no save
   }
 
   function handleChange(event){
@@ -17,10 +17,10 @@ export default function Player({initialName, symbol}) {
   if(isEditing){
     editablePlayerName = (
     <input type="text" required value={playerName} onChange={handleChange} />
-  )
+    );
   }
   return (
-    <li>
+    <li className={isActive ? "active" : undefined}>
       <span className="player">
         {editablePlayerName}
         <span className="player-symbol">{symbol}</span>
