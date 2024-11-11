@@ -43,7 +43,7 @@ header img {
 h1 {
   font-family: "Sour Gummy", sans-serif;
   font-size: 3rem;
-  margin: 0 auto 3rem auto;
+  margin: 3rem auto 3rem auto;
   color: #e7e2ee;
 }
 
@@ -242,7 +242,7 @@ ol {
 
 #log {
   max-width: 20rem;
-  color: #3f3b00;
+  color: #bedbe0;
   list-style: none;
   margin: 2rem auto;
   padding: 0;
