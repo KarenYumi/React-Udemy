@@ -201,7 +201,7 @@ ol {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: rgba(40, 38, 23, 0.95);
+  background-color: rgba(29, 24, 37, 0.918);
   animation: pop-in 0.5s cubic-bezier(0.68, -0.55, 0.65, 0.52) forwards;
 }
 
@@ -209,14 +209,14 @@ ol {
   font-family: "Sour Gummy", sans-serif;
   font-size: 4rem;
   text-align: center;
-  color: rgb(70, 87, 241);
+  color: rgb(70, 144, 241);
   margin: 0;
 }
 
 #game-over p {
   font-size: 2rem;
   text-align: center;
-  color: #e1dec7;
+  color: #c7d5e1;
 }
 
 #game-over button {
@@ -225,7 +225,7 @@ ol {
   font-size: 1.5rem;
   background: none;
   border: 2px solid rgb(70, 87, 241);
-  color: rgb(70, 87, 241);
+  color: rgb(70, 144, 241);
   padding: 0.5rem 1rem;
   border-radius: 4px;
   cursor: pointer;
