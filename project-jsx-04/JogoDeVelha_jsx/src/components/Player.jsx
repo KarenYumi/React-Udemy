@@ -1,11 +1,15 @@
 import {useState} from "react";
 
-export default function Player({initialName, symbol, isActive}) {
+export default function Player({initialName, symbol, isActive, onChangeName}) {
   const [playerName, setPlayerName] = useState(initialName);
   const [isEditing, setIsEditing] = useState(false);
 
   function saving(){
     setIsEditing((editing) => !editing); //para voltar ao edit depois de clicar no save
+    if (isEditing){
+      onChangeName(symbol, playerName);
+    }
+    
   }
 
   function handleChange(event){
