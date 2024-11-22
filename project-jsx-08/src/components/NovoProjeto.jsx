@@ -2,7 +2,7 @@ import { useRef } from "react";
 import Input from "./Input";
 import Modal from "./Modal.";
 
-export default function NovoProjeto({ onAdd }) {
+export default function NovoProjeto({ onAdd, onCancel }) {
   const modal = useRef();
 
   const title = useRef();
@@ -42,7 +42,7 @@ export default function NovoProjeto({ onAdd }) {
         <div className="w-[40rem] mt-16 ml-24 ">
           <menu className="flex items-center justify-end gap-4 my-4">
             <li>
-              <button className="text-stone-700 hover:text-stone-950 ">
+              <button className="text-stone-700 hover:text-stone-950 " onClick={onCancel}>
                 Cancelar
               </button>
             </li>
