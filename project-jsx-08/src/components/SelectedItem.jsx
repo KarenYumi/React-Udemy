@@ -1,4 +1,6 @@
-export default function SeelectedItem({ project, onDelete }) {
+import Task from "./Task.jsx";
+
+export default function SeelectedItem({ project, onDelete, onAddTask, onDeleteTask, task }) {
 
   const formattedDate = new Date(project.dueDate).toLocaleDateString("pt-BR", {
     year: "numeric",
@@ -20,7 +22,7 @@ export default function SeelectedItem({ project, onDelete }) {
         <p className="mb-4 text-stone-400">{formattedDate}</p>
         <p className="text-stone-600 whitespace-pre-wrap">{project.description}</p>
       </header>
-      TASKS
+      <Task onAdd={onAddTask} onDelete={onDeleteTask} task={task}/>
     </div>
   )
 } 
