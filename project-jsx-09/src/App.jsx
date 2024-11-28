@@ -1,26 +1,37 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 
 import Places from './components/Places.jsx';
 import { AVAILABLE_PLACES } from './data.js';
 import Modal from './components/Modal.jsx';
 import DeleteConfirmation from './components/DeleteConfirmation.jsx';
 import logoImg from './assets/logo.png';
+import { sortPlacesByDistance } from "./loc.js";
 
-function App() { 
+const storedIds = JSON.parse(localStorage.getItem("selectedPlaces")) || []; //para ele ser percorrido apenas uma vez, por isso q tá fora do App
+const storedPlaces = storedIds.map((id) =>
+  AVAILABLE_PLACES.find((place) => place.id === id)
+);
+
+function App() {
   const modal = useRef();
   const selectedPlace = useRef();
   const [availablePlaces, setAvailablePlaces] = useState([]);
-  const [pickedPlaces, setPickedPlaces] = useState([]);
+  const [pickedPlaces, setPickedPlaces] = useState(storedPlaces);
 
-  navigator.geolocation.getCurrentPosition((position)=>{
-    const sortedPlaces = sortPlacesByDistance(
-      AVAILABLE_PLACES, 
-      position.coordss.latitude,                              //side effect
-      position.coords.longitude
-    );
 
-    setAvailablePlaces(sortedPlaces);
-  });
+  //usado para n entrar num looping interno, será executado pelo react depois de cada componente
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      const sortedPlaces = sortPlacesByDistance(
+        AVAILABLE_PLACES,
+        position.coords.latitude,                              //side effect
+        position.coords.longitude
+      );
+
+      setAvailablePlaces(sortedPlaces);
+    });
+  }, []); //dependecies, react usará apenas se o dependecies muda
+
 
   function handleStartRemovePlace(id) {
     modal.current.open();
@@ -39,6 +50,14 @@ function App() {
       const place = AVAILABLE_PLACES.find((place) => place.id === id);
       return [place, ...prevPickedPlaces];
     });
+
+    const storedIds = JSON.parse(localStorage.getItem("selectedPlaces")) || [];
+    if (storedIds.indexOf(id) === -1) { //confere se há um id já existente 
+      localStorage.setItem(
+        "selectedPlaces",
+        JSON.stringify([id, ...storedIds])
+      ); //guarda infos se saimos ou reload a pagina
+    }
   }
 
   function handleRemovePlace() {
@@ -46,6 +65,11 @@ function App() {
       prevPickedPlaces.filter((place) => place.id !== selectedPlace.current)
     );
     modal.current.close();
+
+    const storedIds = JSON.parse(localStorage.getItem("selectedPlaces")) || [];
+    localStorage.setItem("selectedPlaces", JSON.stringify(storedIds.filter((id) =>
+      id !== selectedPlace.current))
+    );
   }
 
   return (
@@ -75,6 +99,7 @@ function App() {
         <Places
           title="Available Places"
           places={availablePlaces}
+          fallbackText="ARRUMA OS LUGARES POR DISTÂNCIA"
           onSelectPlace={handleSelectPlace}
         />
       </main>
