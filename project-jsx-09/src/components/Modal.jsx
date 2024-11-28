@@ -4,7 +4,7 @@ import { createPortal } from 'react-dom';
 function Modal({ open, children }) {
   const dialog = useRef();
 
-  dialog.current.showModal();
+  // dialog.current.showModal();
 
   return createPortal(
     <dialog className="modal" ref={dialog} open={open}>
