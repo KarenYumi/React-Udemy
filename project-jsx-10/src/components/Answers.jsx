@@ -26,7 +26,7 @@ export default function Answers({ answers, selectedAnswer , answerState , onSele
         return (
           //key usado para destruir e reconstruir um componente
           <li key={answer} className="answer" > 
-            <button onClick={() => onSelect(answer)} className={cssClass}>
+            <button onClick={() => onSelect(answer)} className={cssClass} disabled={answerState !== ""}>
               {answer}
             </button>
           </li>
