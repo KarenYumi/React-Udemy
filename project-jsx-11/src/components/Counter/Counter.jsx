@@ -61,7 +61,8 @@ const Counter = memo(function Counter({ initialCount }) {
         <CounterOutput value={currentCounter} />
         <IconButton icon={PlusIcon} onClick={handleIncrement}>
           Increment
-        </IconButton>
+        </IconButton> 
+        {/* necessitava terminar o código (aulas 220 a 226)  */}
       </p>
       <CounterHistory history={counterChanges} />
     </section>
