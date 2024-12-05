@@ -32,7 +32,7 @@ export async function updatedUserPlaces(places){
   const resData = await response.json();
 
   if(!response.ok){
-    throw new Error("Falha no update do user");
+    throw new Error("Falha no update do useer");
   }
 
   return resData.message;
