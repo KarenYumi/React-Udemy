@@ -6,7 +6,7 @@ export default function Input({ label, id, error, ...props }) {
         id={id}
         {...props}
       />
-      <div class="control-error">{error && <p>{error}</p>}</div>
+      <div className="control-error">{error && <p>{error}</p>}</div>
     </div>
   )
 }
