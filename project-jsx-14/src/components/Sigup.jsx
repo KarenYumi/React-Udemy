@@ -7,6 +7,8 @@ export default function Signup() {
     const data = Object.fromEntries(fd.entries()); //da um array de todos os input fields
     data.acquisition = checkBox;
     console.log(data);
+
+    event.target.reset();
   }
 
 
