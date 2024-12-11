@@ -1,7 +1,12 @@
-import { useActionState } from "react";
+import { useActionState, use } from "react";
+import {useFormStatus} from "react-dom";
+import { OpinionsContext } from "../store/opinions-context.jsx"
+import Submit from "./Submit.jsx";
 
 export function NewOpinion() {
-  function shareOpinion(prevState, formData) {
+  const { addOpinion } = use(OpinionsContext);
+
+  async function shareOpinion(prevState, formData) {
     const title = formData.get("title");
     const body = formData.get("body");
     const userName = formData.get("userName");
@@ -27,11 +32,14 @@ export function NewOpinion() {
       };
     }
 
+    await addOpinion({ title, body, userName });
     return { errors: null };
 
   }
 
-  const [formState, formAction] = useActionState(shareOpinion, { erros: null });
+  const [formState, formAction] = useActionState(shareOpinion, {
+    erros: null
+  });
 
   return (
     <div id="new-opinion">
@@ -40,12 +48,12 @@ export function NewOpinion() {
         <div className="control-row">
           <p className="control">
             <label htmlFor="userName">Your Name</label>
-            <input type="text" id="userName" name="userName" defaultValue={formState.enteredvalues?.userName}/>
+            <input type="text" id="userName" name="userName" defaultValue={formState.enteredvalues?.userName} />
           </p>
 
           <p className="control">
             <label htmlFor="title">Title</label>
-            <input type="text" id="title" name="title" defaultValue={formState.enteredvalues?.title}/>
+            <input type="text" id="title" name="title" defaultValue={formState.enteredvalues?.title} />
           </p>
         </div>
         <p className="control">
@@ -60,10 +68,7 @@ export function NewOpinion() {
             ))}
           </ul>
         )}
-
-        <p className="actions">
-          <button type="submit">Submit</button>
-        </p>
+        <Submit></Submit>
       </form>
     </div>
   );
