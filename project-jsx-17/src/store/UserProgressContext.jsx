@@ -12,15 +12,19 @@ export function UserProgressContextProvider({children}){
   const [userProgress, setUserProgress] = useState("");
 
   function showCart(){
+    console.log("showCart called");
     setUserProgress("cart");
   }
   function hideCart(){
+    console.log("hideCart called");
     setUserProgress("");
   }
   function showCheckout(){
+    console.log("showCheckout called"); 
     setUserProgress("checkout");
   }
   function hideCheckout(){
+    console.log("hideCheckout called");
     setUserProgress("");
   }
   const userProgressCtx = {
