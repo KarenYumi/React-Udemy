@@ -6,6 +6,7 @@ import NewEventPage from "./pages/NewEventPage";
 import EditEventPage from "./pages/EditEventPage";
 import RootLayout from "./pages/Roots";
 import EventsRootLayout from "./pages/EventsRoots";
+import ErrorPage from "./pages/Error";
 
 // BONUS: Add another (nested) layout route that adds the <EventNavigation> component above all /events... page components
 
@@ -13,6 +14,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
+    errorElement: <ErrorPage/>,
     children: [
       { index: true, element: <HomePage /> },
       {
