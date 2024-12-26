@@ -13,7 +13,11 @@
 .form input,
 .form textarea {
   font: inherit;
+  background-color: rgb(66, 66, 66);
+  border-radius: 0.2rem;
+  border: rgb(122, 122, 122) solid 1px;
   padding: 0.25rem;
+  color:white;
 }
 
 .actions {
