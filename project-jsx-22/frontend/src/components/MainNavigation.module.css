@@ -20,3 +20,12 @@
 .list a.active {
   color: var(--color-primary-800);
 }
+
+.list button{
+  background-color: rgb(85, 85, 85);
+  color: white;
+  border: none;
+  padding: 0.5rem 0.8rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
