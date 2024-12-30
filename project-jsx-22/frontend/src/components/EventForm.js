@@ -3,7 +3,6 @@ import {
   useNavigate,
   useNavigation,
   useActionData,
-  json,
   redirect
 } from 'react-router-dom';
 
@@ -25,8 +24,8 @@ function EventForm({ method, event }) {
     <Form method={method} className={classes.form}>
       {data && data.errors && (
         <ul>
-          {Object.values(data.errors).map((err) => (
-            <li key={err}>{err}</li>
+          {Object.entries(data.errors).map(([key, error]) => (
+            <li key={key}>{key}: {error}</li>
           ))}
         </ul>
       )}
@@ -99,28 +98,44 @@ export async function action({ request, params }) {
 
   if (method === 'PATCH') {
     const eventId = params.eventId;
-    url = 'http://localhost:8080/events/' + eventId;
+    if (!eventId) {
+      throw new Response(
+        JSON.stringify({ message: 'Event ID is required for updating.' }),
+        { status: 400 }
+      );
+    }
+    url = `http://localhost:8080/events/${eventId}`;
   }
 
   const token = getAuthToken();
-
-  const response = await fetch(url, {
-    method: method,
-    headers: {
-      'Content-Type': 'application/json',
-      "Authorization": "Bearer " + token,
-    },
-    body: JSON.stringify(eventData),
-  });
-
-  if (response.status === 422) {
-    return response;
+  if (!token) {
+    return redirect('/auth'); 
   }
 
-  if (!response.ok) {
-    throw json({ message: 'Could not save event.' }, { status: 500 });
-  }
+  try {
+    const response = await fetch(url, {
+      method: method,
+      headers: {
+        'Content-Type': 'application/json',
+        "Authorization": "Bearer " + token,
+      },
+      body: JSON.stringify(eventData),
+    });
 
-  return redirect('/events');
+    if (response.status === 422) {
+      const errors = await response.json();
+      return {errors};
+    }
+
+    if (!response.ok) {
+      throw new Error('Failed to save event');
+    }
+
+    return redirect('/events');
+  } catch (error) {
+    console.error("Error in action:", error);
+    throw new Response(JSON.stringify({ message: 'Could not save event. Please try again later.' }), {
+      status: 500,
+    });
+  }
 }
-

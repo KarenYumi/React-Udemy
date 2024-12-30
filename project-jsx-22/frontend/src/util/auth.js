@@ -12,7 +12,7 @@ export function getAuthToken() {
   const token = localStorage.getItem('token');
 
   if (!token) {
-    return Response(JSON.stringify({ message: "Not authenticated" }), { status: 401 });
+    return null;
   }
 
   const tokenDuration = getTokenDuration();
@@ -51,4 +51,6 @@ export function checkAuthLoader() {
   if (!token) {
     return redirect('/auth');
   }
+
+  return null;
 }
