@@ -18,8 +18,14 @@ function ErrorPage() {
     message = 'Could not find resource or page.';
   }
 
+  if (error.status === 401) {
+    title = 'Authentication Error';
+    message = 'You need to log in to access this page.';
+  }
+
   return (
     <>
+      <MainNavigation/>
       <PageContent title={title}>
         <p>{message}</p>
       </PageContent>
