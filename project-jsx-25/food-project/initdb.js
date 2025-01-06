@@ -1,5 +1,11 @@
-const sql = require('better-sqlite3');
-const db = sql('meals.db');
+try {
+   const db = sql('meals.db');
+   console.log("Banco de dados carregado com sucesso.");
+} catch (error) {
+   console.error("Erro ao carregar o banco de dados:", error.message);
+}
+
+
 
 const dummyMeals = [
   {
