@@ -1,1 +1,9 @@
-node_module/
+# Ignorar arquivos grandes
+*.log
+*.zip
+*.node
+my-large-file.dat
+
+# Ignorar diretórios grandes
+large_folder/
+node_modules/
