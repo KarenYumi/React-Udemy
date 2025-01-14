@@ -8,6 +8,5 @@ export default function MeetupDetails() {
       address="1111"
       description="This is the First Meetup"
     />
-
-  )
+  );
 }
