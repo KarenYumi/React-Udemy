@@ -34,12 +34,24 @@ export default function HomePage(props) {
 }
 
 
-export async function getStaticProps() {
+export async function getServerSideProps(context){
+  const req = context.req;
+  const res = context.res;
+
   //fetch data from API
   return{
     props: {
       meetups: DUMMY_MEETUPS
-    },
-    relavidate: 1
-  };
+    }
+  }
 }
+
+// export async function getStaticProps() {
+//   //fetch data from API
+//   return{
+//     props: {
+//       meetups: DUMMY_MEETUPS
+//     },
+//     relavidate: 1
+//   };
+// }
