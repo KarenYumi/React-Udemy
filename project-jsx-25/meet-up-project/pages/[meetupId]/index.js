@@ -1,49 +1,59 @@
+import { MongoClient,  ObjectId } from "mongodb";
+
 import MeetupDetail from "../../components/meetups/TempFile.js"
 
-export default function MeetupDetails() {
+export default function MeetupDetails(props) {
   return (
     <MeetupDetail
-      image="https://upload.wikimedia.org/wikipedia/commons/d/d3/Stadtbild_M%C3%BCnchen.jpg"
-      title="First Meetup"
-      address="1111"
-      description="This is the First Meetup"
+      image={props.meetupData.image}
+      title={props.meetupData.title}
+      address={props.meetupData.adress}
+      description={props.meetupData.description}
     />
   );
 }
 
 export async function getStaticPaths() {
-  return{
+  const client = await MongoClient.connect(
+    "mongodb+srv://karen:yumizinha01@cluster0.d1aiq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+  );
+  const db = client.db();
+  const meetupCollection = db.collection("meetups");
+
+  const meetups = await meetupCollection.find({}, {_id: 1}).toArray();
+
+  return {
     fallback: false,
-    paths:[
-      {
-        params: {
-          meetupId: "m1",
-        },
-      },
-      {
-        params: {
-          meetupId: "m2",
-        },
-      },
-    ],
+    paths: meetups.map((meetup) => ({ params: {meetupId: meetup._id.toString()}, })),
   };
 }
 
-export async function getStaticProps(context){
+export async function getStaticProps(context) {
   //fetch data for a single meetup
 
   const meetupId = context.params.meetupId;
-  console.log(meetupId);
+
+  const client = await MongoClient.connect(
+    "mongodb+srv://karen:yumizinha01@cluster0.d1aiq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+  );
+  const db = client.db();
+  const meetupCollection = db.collection("meetups");
+
+  const selectedMeetup = await meetupCollection.findOne({_id: new ObjectId(meetupId), });
+
+  console.log(selectedMeetup);
+
+  client.close();
 
   return {
-    props:{
+    props: {
       meetupData: {
-        image: "https://upload.wikimedia.org/wikipedia/commons/d/d3/Stadtbild_M%C3%BCnchen.jpg",
-        id: meetupId,
-        title: "First Meetup" ,
-        address: "1111",
-        description:"This is the First Meetup"
-      }
-    }
-  }
+        id: selectedMeetup._id.toString(),
+        title: selectedMeetup.title,
+        address: selectedMeetup.address,
+        image: selectedMeetup.image,
+        description: selectedMeetup.description,
+      },
+    },
+  };
 }
