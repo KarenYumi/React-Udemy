@@ -1,7 +1,12 @@
-export default function Home() {
+import fs from "node:fs/promises";
+import UsePromiseDemo from "@/components/UsePromisesDemo";
+
+export default async function Home() {
+    const data = await fs.readFile("dummy-db.json", "utf-8");
+    const users = JSON.parse(data);
   return (
     <main>
-      <p>Let's go!</p>
+      <UsePromiseDemo users={users}/>
     </main>
   );
 }
