@@ -1,4 +1,7 @@
 import { useRouter } from "next/router";
+import Head from "next/head";
+import { Fragment } from "react";
+
 import NewMeetupForm from "../../components/meetups/NewMeetupForm";
 
 export default function NewMeetupPage() {
@@ -14,13 +17,13 @@ export default function NewMeetupPage() {
           "Content-Type": "application/json",
         },
       });
-  
+
       if (!response.ok) {
         const errorData = await response.json();
         console.error("Failed:", errorData);
         throw new Error(errorData.message || "Something went wrong");
       }
-  
+
       const data = await response.json();
       console.log(data);
     } catch (error) {
@@ -29,9 +32,18 @@ export default function NewMeetupPage() {
 
     router.push("/")
   }
-  
+
 
   return (
-    <NewMeetupForm onAddMeetup={addMeetupHandler} />
+    <Fragment>
+      <Head>
+        <title>Add a new meetup</title>
+        <meta
+          name="Description"
+          content="Add you own meetup"
+        ></meta>
+      </Head>
+      <NewMeetupForm onAddMeetup={addMeetupHandler} />
+    </Fragment>
   );
 }
