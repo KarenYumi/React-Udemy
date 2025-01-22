@@ -1,57 +1,35 @@
-import { useEffect, useState } from "react";
+import { MongoClient } from "mongodb";
 
 import MeetupList from "../components/meetups/MeetupList"
 
-const DUMMY_MEETUPS = [
-  {
-    id: "m1",
-    title: "First",
-    image: "https://upload.wikimedia.org/wikipedia/commons/d/d3/Stadtbild_M%C3%BCnchen.jpg",
-    address: "1111",
-    description: "This a first"
-  },
-  {
-    id: "m2",
-    title: "Second",
-    image: "https://upload.wikimedia.org/wikipedia/commons/d/d3/Stadtbild_M%C3%BCnchen.jpg",
-    address: "2222",
-    description: "This a first"
-  },
-
-]
-
 export default function HomePage(props) {
-  // const [loadedMeetups, setLoadedMeetups] =  useState([]);
-
-  // useEffect(() => {
-  //                                                               send a http request and fetch data
-  //   setLoadedMeetups(DUMMY_MEETUPS);
-  // },[]);
-
   return (
-      <MeetupList meetups={props.meetups} />
+    <MeetupList meetups={props.meetups} />
   )
 }
 
-
-export async function getServerSideProps(context){
-  const req = context.req;
-  const res = context.res;
-
+export async function getStaticProps() {
   //fetch data from API
-  return{
-    props: {
-      meetups: DUMMY_MEETUPS
-    }
-  }
-}
 
-// export async function getStaticProps() {
-//   //fetch data from API
-//   return{
-//     props: {
-//       meetups: DUMMY_MEETUPS
-//     },
-//     relavidate: 1
-//   };
-// }
+  const client = await MongoClient.connect(
+    "mongodb+srv://karen:yumizinha01@cluster0.d1aiq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+  );
+  const db = client.db();
+  const meetupCollection = db.collection("meetups");
+
+  const meetups = await meetupCollection.find().toArray();
+
+  client.close();
+
+  return {
+    props: {
+      meetups: meetups.map((meetup) => ({
+        title: meetup.title,
+        address: meetup.address,
+        image: meetup.image,
+        id: meetup._id.toString(),
+      }))
+    },
+    revalidate: 1,
+  };
+}
